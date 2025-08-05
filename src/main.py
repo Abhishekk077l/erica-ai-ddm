@@ -2,8 +2,10 @@
 
 import subprocess
 import os
+import time
 from src.hrm.model import HRM
 from src.computer_vision.core import ComputerVision
+from src.orchestra.core import Orchestra
 
 def install_voice_dependencies():
     """
@@ -21,7 +23,6 @@ def install_voice_dependencies():
             print(f"Error: The script at {script_path} was not found.")
             exit(1)
 
-
 def main():
     """
     Main function to run ERICA v2.0.
@@ -32,26 +33,41 @@ def main():
 
     hrm = HRM()
     cv = ComputerVision()
+    orchestra = Orchestra()
+    orchestra.start()
 
     print("ERICA v2.0 is running. Type 'exit' to quit.")
+    print("You can add tasks to the queue by typing 'task: <task description>'.")
 
-    while True:
-        try:
+    try:
+        while True:
             user_input = input("> ")
             if user_input.lower() == 'exit':
                 break
 
-            if "capture screen" in user_input.lower():
+            if user_input.lower().startswith("task:"):
+                task_description = user_input[5:].strip()
+                # This is a dummy task. In a real application, we would
+                # parse the task description and create a real task.
+                def dummy_task():
+                    print(f"Starting task: {task_description}")
+                    time.sleep(2)
+                    print(f"Finished task: {task_description}")
+                orchestra.add_task(dummy_task)
+                print(f"Task '{task_description}' added to the queue.")
+            elif "capture screen" in user_input.lower():
                 print("Capturing screen...")
                 frame = cv.capture_screen()
                 print(f"Screen captured. Frame shape: {frame.shape}")
             else:
                 response = hrm.query(user_input)
                 print(response)
-        except (KeyboardInterrupt, EOFError):
-            break
 
-    print("Shutting down ERICA v2.0.")
+    except (KeyboardInterrupt, EOFError):
+        pass
+    finally:
+        orchestra.stop()
+        print("Shutting down ERICA v2.0.")
 
 if __name__ == "__main__":
     main()
