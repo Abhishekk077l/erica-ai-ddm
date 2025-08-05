@@ -1,0 +1,14 @@
+{
+  "name": "erica-voice-processing",
+  "version": "1.0.0",
+  "description": "Voice processing module for ERICA v2.0, using Leon AI and RASA.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@leon-ai/cli": "^1.0.0-beta.7"
+  }
+}

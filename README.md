@@ -17,9 +17,24 @@ This project is the development of ERICA v2.0, a next-generation AI desktop assi
 │   ├── main.py
 │   ├── hrm
 │   │   └── __init__.py
-│   └── computer_vision
-│       └── __init__.py
+│   ├── computer_vision
+│   │   └── __init__.py
+│   └── voice_processing
+│       ├── install_node_deps.sh
+│       └── package.json
 └── tests
     ├── test_hrm.py
     └── test_computer_vision.py
 ```
+
+## Voice Processing Module
+
+The voice processing module uses Node.js and requires a separate installation step for its dependencies. The main application will automatically install these dependencies when it is run for the first time.
+
+If you encounter any issues with the Node.js dependency installation, you can run the installation script manually:
+
+```bash
+bash src/voice_processing/install_node_deps.sh
+```
+
+The script includes checks for common issues, such as incorrect Node.js/npm versions and permission problems.
